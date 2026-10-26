@@ -1,4 +1,4 @@
-﻿using CalamityMod.Graphics.Metaballs;
+using CalamityMod.Graphics.Metaballs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -113,8 +113,8 @@ namespace CalamityMod.Projectiles.Enemy
 
             if (!Main.dedServ)
             {
-                Gore.NewGore(Projectile.Center, Projectile.oldVelocity * -0.8f, 1, 0.75f);
-                Gore.NewGore(Projectile.Center, Projectile.oldVelocity * -0.8f, 2, 0.75f);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.oldVelocity * -0.8f, 1, 0.75f);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.oldVelocity * -0.8f, 2, 0.75f);
             }
         }
 

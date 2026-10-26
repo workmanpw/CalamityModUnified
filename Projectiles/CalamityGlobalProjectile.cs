@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -3037,7 +3037,8 @@ namespace CalamityMod.Projectiles
         {
             var owner = Main.player[projectile.owner];
             var cplayer = owner.Calamity();
-            owner.Fishing_GetBait(out Item baitItem);
+            // tModLoader 2026: Player.Fishing_GetBait was removed; use the first bait item in inventory instead.
+            Item baitItem = owner.inventory.FirstOrDefault(i => i != null && i.bait > 0);
             bool reelingIn = projectile.ai[0] == 1;
             bool lineSnapped = projectile.ai[0] == 2;
 

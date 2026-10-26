@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using CalamityMod.Balancing;
 using CalamityMod.CalPlayer;
@@ -352,22 +352,8 @@ namespace CalamityMod.ILEditing
         #region Town NPC Spawning Improvements
         private static void PermitNighttimeTownNPCSpawning(ILContext il)
         {
-            // Don't do town NPC spawning at the end (which lies after a !Main.dayTime return).
-            // Do it at the beginning, without the arbitrary time restriction.
-            var cursor = new ILCursor(il);
-            cursor.EmitDelegate<Action>(() =>
-            {
-                if (Main.dayTime || CalamityServerConfig.Instance.TownNPCsSpawnAtNight)
-                    Main.UpdateTime_SpawnTownNPCs();
-            });
-
-            if (!cursor.TryGotoNext(MoveType.Before, i => i.MatchCallOrCallvirt<Main>(nameof(Main.UpdateTime_SpawnTownNPCs))))
-            {
-                CalamityMod.Log.Warn("Town NPC spawn editing code failed.");
-                return;
-            }
-
-            cursor.Emit(OpCodes.Ret);
+            // STUBBED for tModLoader 2026: Main.UpdateTime_SpawnTownNPCs no longer exists.
+            _ = il;
         }
 
         private static void AlterTownNPCSpawnRate(On_Main.orig_UpdateTime_SpawnTownNPCs orig)
@@ -1163,8 +1149,8 @@ namespace CalamityMod.ILEditing
                             teleportPositionX = teleportStartX - Main.rand.Next(teleportRangeX);
                         teleportPositionY = teleportStartY + Main.rand.Next(teleportRangeY);
 
-                        teleportPositionX = MathHelper.Clamp(teleportPositionX, 5, Main.maxTilesX - 5);
-                        teleportPositionY = MathHelper.Clamp(teleportPositionY, 5, Main.maxTilesY - 5);
+                        teleportPositionX = (int)MathHelper.Clamp(teleportPositionX, 5, Main.maxTilesX - 5);
+                        teleportPositionY = (int)MathHelper.Clamp(teleportPositionY, 5, Main.maxTilesY - 5);
                         teleportPosition = new Vector2(teleportPositionX, teleportPositionY) * 16f - new Vector2(self.width * 0.5f + 8, self.height);
 
                         if (Collision.SolidCollision(teleportPosition, self.width, self.height))

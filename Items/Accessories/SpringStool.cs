@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
@@ -113,8 +113,7 @@ namespace CalamityMod.Items.Accessories
                     Player.portableStoolInfo.VisualYOffset = boost;
                     Player.portableStoolInfo.MapYOffset = boost;
 
-                    // Forces the player into the stool-standing frame
-                    Player.UpdatePortableStoolUsage();
+                    // tModLoader 2026: UpdatePortableStoolUsage was removed; portableStoolInfo.IsInUse above now drives the stool frame.
                 }
 
                 else

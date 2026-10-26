@@ -1598,6 +1598,7 @@ namespace CalamityMod.CalPlayer
         public bool redDevil = false;
         public bool rDevil = false;
         public bool cSlime = false;
+        public bool cSlime2 = false; // Restored for CrimslimeMinion.
         public bool voidAura = false;
         public bool voidAuraDamage = false;
         public bool voidConcentrationAura = false;
@@ -5065,7 +5066,7 @@ namespace CalamityMod.CalPlayer
                 // Gives inverted buffs from well fed
                 Player.statDefense -= 2;
                 Player.GetCritChance<GenericDamageClass>() -= 2;
-                Player.minionKB -= 0.5f;
+                Player.GetKnockback<SummonDamageClass>() -= 0.5f;
                 Player.moveSpeed -= 0.05f;
                 // damage nerf/boost happens in PostUpdate
                 Player.pickSpeed += 0.05f;

@@ -188,7 +188,7 @@ namespace CalamityMod.Items.Fishing
             if (tile.TileType == TileID.MysticSnakeRope)
                 return;
 
-            int pickDmg = Main.LocalPlayer.GetPickaxeDamage(x, y, pickPower, hitIndex, tile);
+            int pickDmg = pickPower; // tModLoader 2026: GetPickaxeDamage was removed; use the item pick power directly.
 
 
             if (!WorldGen.CanKillTile(x, y))
@@ -197,13 +197,11 @@ namespace CalamityMod.Items.Fishing
             if (Main.getGoodWorld)
                 pickDmg *= 2;
 
-            if (Main.LocalPlayer.DoesPickTargetTransformOnKill(Main.LocalPlayer.hitTile, pickDmg, x, y, pickPower, hitIndex, tile))
-                pickDmg = 0;
 
             if (Main.LocalPlayer.hitTile.AddDamage(hitIndex, pickDmg) >= 100)
             {
                 AchievementsHelper.CurrentlyMining = true;
-                Main.LocalPlayer.ClearMiningCacheAt(x, y, 1);
+                // tModLoader 2026: ClearMiningCacheAt was removed; hitTile.AddDamage now manages its own cache.
                 if (Main.netMode == NetmodeID.MultiplayerClient && Main.tileContainer[tile.TileType])
                 {
                     if (tile.TileType == TileID.DisplayDoll || tile.TileType == TileID.HatRack)

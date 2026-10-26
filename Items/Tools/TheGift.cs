@@ -1,8 +1,9 @@
-﻿using CalamityMod.Items.Placeables.Furniture;
+using CalamityMod.Items.Placeables.Furniture;
 using CalamityMod.NPCs;
 using CalamityMod.Packets.Entities;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
+using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -122,6 +123,70 @@ namespace CalamityMod.Items.Tools
             }
         }
 
+
+        // Reflection helpers for tModLoader 2026: ShopHelper price adjustment and happiness
+        // are no longer accessible as the old private fields, so look them up by name at runtime.
+        private static FieldInfo ShopHelperField(ShopHelper self, params string[] names)
+        {
+            foreach (string name in names)
+            {
+                FieldInfo f = typeof(ShopHelper).GetField(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (f != null)
+                    return f;
+            }
+            return null;
+        }
+        private static float GetPriceAdjustment(ShopHelper self)
+        {
+            FieldInfo f = ShopHelperField(self, "_currentPriceAdjustment", "PriceAdjustment", "_priceAdjustment", "priceAdjustment");
+            if (f != null)
+                return (float)f.GetValue(self);
+            PropertyInfo pr = typeof(ShopHelper).GetProperty("PriceAdjustment", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            return pr != null ? (float)pr.GetValue(self) : 1f;
+        }
+        private static void SetPriceAdjustment(ShopHelper self, float value)
+        {
+            FieldInfo f = ShopHelperField(self, "_currentPriceAdjustment", "PriceAdjustment", "_priceAdjustment", "priceAdjustment");
+            if (f != null)
+            {
+                f.SetValue(self, value);
+                return;
+            }
+            PropertyInfo pr = typeof(ShopHelper).GetProperty("PriceAdjustment", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (pr != null && pr.CanWrite)
+                pr.SetValue(self, value);
+        }
+        private static string GetHappiness(ShopHelper self)
+        {
+            FieldInfo f = ShopHelperField(self, "_currentHappiness", "Happiness", "_happiness", "currentHappiness");
+            if (f != null)
+                return (string)f.GetValue(self);
+            PropertyInfo pr = typeof(ShopHelper).GetProperty("Happiness", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            return pr != null ? (string)pr.GetValue(self) : "";
+        }
+        private static void SetHappiness(ShopHelper self, string value)
+        {
+            FieldInfo f = ShopHelperField(self, "_currentHappiness", "Happiness", "_happiness", "currentHappiness");
+            if (f != null)
+            {
+                f.SetValue(self, value);
+                return;
+            }
+            PropertyInfo pr = typeof(ShopHelper).GetProperty("Happiness", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (pr != null && pr.CanWrite)
+                pr.SetValue(self, value);
+        }
+        private static void LimitAndRoundMultiplier(ShopHelper self, float value)
+        {
+            MethodInfo m = typeof(ShopHelper).GetMethod("LimitAndRoundMultiplier", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (m != null)
+            {
+                m.Invoke(self, new object[] { value });
+                return;
+            }
+            SetPriceAdjustment(self, MathHelper.Clamp(value, 0.5f, 1.75f));
+        }
+
         // Also contains logic for The Monument, so I can make sure these apply in the correct order
         private static void TheGiftHappiness(On_ShopHelper.orig_ProcessMood orig, ShopHelper self, Player player, NPC npc)
         {
@@ -135,9 +200,9 @@ namespace CalamityMod.Items.Tools
             // The Monument lowers happiness by a fixed amount. This is not applied to the Tax Collector.
             if (npc.type != NPCID.TaxCollector && gtnpc.AffectedByTheMonument)
             {
-                float oldHappiness = self._currentPriceAdjustment;
-                self._currentPriceAdjustment += TheMonument.MonumentHappinessReduction;
-                self.LimitAndRoundMultiplier(self._currentPriceAdjustment);
+                float oldHappiness = GetPriceAdjustment(self);
+                SetPriceAdjustment(self, GetPriceAdjustment(self) + TheMonument.MonumentHappinessReduction);
+                LimitAndRoundMultiplier(self, GetPriceAdjustment(self));
                 string dialogueKey;
                 if (npc.type < NPCID.Count)
                 {
@@ -154,9 +219,9 @@ namespace CalamityMod.Items.Tools
 
                 // If the NPC is content, it should override that text because they are no longer content
                 if (oldHappiness == 1f)
-                    self._currentHappiness = Language.Exists(dialogueKey) ? Language.GetTextValue(dialogueKey) : CalamityUtils.GetTextValue("Vanilla.TownNPCMood.DefaultMonument") + " ";
+                    SetHappiness(self, Language.Exists(dialogueKey) ? Language.GetTextValue(dialogueKey) : CalamityUtils.GetTextValue("Vanilla.TownNPCMood.DefaultMonument") + " ");
                 else
-                    self._currentHappiness += Language.Exists(dialogueKey) ? Language.GetTextValue(dialogueKey) : CalamityUtils.GetTextValue("Vanilla.TownNPCMood.DefaultMonument") + " ";
+                    SetHappiness(self, GetHappiness(self) + (Language.Exists(dialogueKey) ? Language.GetTextValue(dialogueKey) : CalamityUtils.GetTextValue("Vanilla.TownNPCMood.DefaultMonument") + " "));
             }
 
             // The Gift sets happiness to a fixed either extremely high or extremely low value, depending on its random state.
@@ -164,9 +229,9 @@ namespace CalamityMod.Items.Tools
             if (gift.HasValue)
             {
                 if (gift.Value)
-                    self._currentPriceAdjustment = 0.5f;
+                    SetPriceAdjustment(self, 0.5f);
                 else
-                    self._currentPriceAdjustment = 1.75f;
+                    SetPriceAdjustment(self, 1.75f);
 
                 string locKey = gift.Value ? "GiftPositive" : "GiftNegative";
                 string dialogueKey;
@@ -183,7 +248,7 @@ namespace CalamityMod.Items.Tools
                     dialogueKey = $"Mods.{modNPC.Mod.Name}.NPCs.{modNPC.Name}.TownNPCMood.{locKey}";
                 }
                 // Yes, it's intentional that this completely overrides all other happiness report dialogue
-                self._currentHappiness = Language.Exists(dialogueKey) ? Language.GetTextValue(dialogueKey) : CalamityUtils.GetTextValue($"Vanilla.TownNPCMood.Default{locKey}") + " ";
+                SetHappiness(self, Language.Exists(dialogueKey) ? Language.GetTextValue(dialogueKey) : CalamityUtils.GetTextValue($"Vanilla.TownNPCMood.Default{locKey}") + " ");
             }
         }
     }

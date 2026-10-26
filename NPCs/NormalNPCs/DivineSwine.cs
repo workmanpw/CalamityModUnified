@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -120,7 +120,7 @@ namespace CalamityMod.NPCs.NormalNPCs
             NPCID.Sets.CantTakeLunchMoney[Type] = true;
             NPCID.Sets.NormalGoldCritterBestiaryPriority.Add(Type);
             NPCID.Sets.ImmuneToAllBuffs[Type] = true;
-            NPCID.Sets.ShimmerImmunity[Type] = true;
+            // tModLoader 2026: NPCID.Sets.ShimmerImmunity was removed; DivineSwine will transform in shimmer like other NPCs.
         }
 
         public override void SetDefaults()

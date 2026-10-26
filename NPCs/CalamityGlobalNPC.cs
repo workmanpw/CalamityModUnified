@@ -4151,7 +4151,7 @@ namespace CalamityMod.NPCs
                 return;
 
             int spawnRate = 400;
-            int maxSpawnCount = NPC.maxSpawns;
+            int maxSpawnCount = 200; // tModLoader 2026: NPC.maxSpawns was removed; 200 is the vanilla default, adjusted below by EditSpawnRate.
             NPCLoader.EditSpawnRate(player, ref spawnRate, ref maxSpawnCount);
 
             // Enforce a limit on the amount of enemies that can appear.
@@ -4225,7 +4225,7 @@ namespace CalamityMod.NPCs
                 return;
 
             int spawnRate = 400;
-            int maxSpawnCount = NPC.maxSpawns;
+            int maxSpawnCount = 200; // tModLoader 2026: NPC.maxSpawns was removed; 200 is the vanilla default, adjusted below by EditSpawnRate.
             NPCLoader.EditSpawnRate(player, ref spawnRate, ref maxSpawnCount);
 
             // Enforce a limit on the amount of enemies that can appear.

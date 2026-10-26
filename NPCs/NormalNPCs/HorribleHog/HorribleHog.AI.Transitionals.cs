@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -267,7 +267,7 @@ namespace CalamityMod.NPCs.NormalNPCs.HorribleHog
                     for (int i = 0; i < 17; i++)
                     {
                         int goreType = Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1);
-                        Gore.NewGorePerfect(NPC.position, Main.rand.NextVector2Circular(2f, 2f), goreType);
+                        Gore.NewGorePerfect(NPC.GetSource_FromThis(), NPC.position, Main.rand.NextVector2Circular(2f, 2f), goreType, 1f);
                     }
 
                     CombatText.NewText(NPC.Hitbox, Color.LawnGreen, 5000);
