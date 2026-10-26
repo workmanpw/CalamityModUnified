@@ -1,4 +1,4 @@
-﻿using CalamityMod.Items.Placeables.Furniture;
+using CalamityMod.Items.Placeables.Furniture;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -240,7 +240,7 @@ namespace CalamityMod.Tiles.Furniture
                 float goodPercent = dummy.buffTime * (dummy.buffType == BuffID.WellFed3 ? 10f : dummy.buffType == BuffID.WellFed2 ? 2f : 1f) / 3600f / 10f;
 
                 int itemDrop = Main.rand.NextFloat(100f) < goodPercent ? ModContent.ItemType<QualitySlop>() : ModContent.ItemType<DisgustingSlop>();
-                int i = Item.NewItem(Projectile.GetItemSource_DropAsItem(), Projectile.Center, itemDrop);
+                int i = Item.NewItem(Projectile.GetSource_FromThis(), Projectile.Center, itemDrop);
                 Main.item[i].GetGlobalItem<GluttonyBlenderGlobalItem>().FromGluttonyBlender = true;
             }
             Timer++;

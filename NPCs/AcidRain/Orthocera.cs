@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using CalamityMod.BiomeManagers;
 using CalamityMod.Buffs.StatDebuffs;
@@ -209,7 +209,7 @@ namespace CalamityMod.NPCs.AcidRain
                 NPC.Calamity().newAI[0]++;
                 if (NPC.Calamity().newAI[0] % 5 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    RancorFog fog = new(NPC.Bottom, Main.rand.NextVector2Circular(4f, 8f), 180, Main.rand.NextFloat(1f, 1.7f), Main.rand.NextFloat(MathHelper.TwoPi));
+                    global::CalamityMod.Particles.RancorFog fog = new(NPC.Bottom, Main.rand.NextVector2Circular(4f, 8f), 180, Main.rand.NextFloat(1f, 1.7f), Main.rand.NextFloat(MathHelper.TwoPi));
                     GeneralParticleHandler.SpawnParticle(fog, false, Enums.GeneralDrawLayer.BeforeNPCs);
                     RancorLavaMetaball.SpawnParticle(NPC.Bottom + Main.rand.NextVector2Circular(10f, 10f), 135f);
                 }

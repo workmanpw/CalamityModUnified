@@ -6665,9 +6665,9 @@ namespace CalamityMod.CalPlayer
                 if (Main.myPlayer == Player.whoAmI)
                 {
                     fleshTotemManaStorage += manaConsumed;
-                    if (fleshTotemManaStorage >= FleshTotem.manaStorageMax)
+                    if (fleshTotemManaStorage >= global::CalamityMod.Items.Accessories.FleshTotem.manaStorageMax)
                     {
-                        fleshTotemManaStorage = FleshTotem.manaStorageMax;
+                        fleshTotemManaStorage = global::CalamityMod.Items.Accessories.FleshTotem.manaStorageMax;
                     }
                 }
             }

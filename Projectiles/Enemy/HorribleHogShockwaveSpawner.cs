@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -108,7 +108,7 @@ namespace CalamityMod.Projectiles.Enemy
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float shockwaveHeight = MathHelper.Lerp(MinHeightMultiplier, MaxHeightMultiplier, ShockwaveCounter / MaxShockwaves);
-                    Projectile.NewProjectile(Projectile.GetItemSource_FromThis(), shockwaveSpawnPosition, Vector2.Zero, ModContent.ProjectileType<HorribleHogShockwave>(), Projectile.damage, Projectile.knockBack, ai1: shockwaveHeight, ai2: OwnerIndex);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), shockwaveSpawnPosition, Vector2.Zero, ModContent.ProjectileType<HorribleHogShockwave>(), Projectile.damage, Projectile.knockBack, ai1: shockwaveHeight, ai2: OwnerIndex);
                 }
 
                 ShockwaveCounter++;

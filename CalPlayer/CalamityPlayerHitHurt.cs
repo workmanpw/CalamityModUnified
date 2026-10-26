@@ -2236,7 +2236,7 @@ namespace CalamityMod.CalPlayer
                     if (fleshTotemManaStorage >= 100 && fleshTotemVisual)
                         SoundEngine.PlaySound(Counter with { Volume = 0.75f }, Player.Center);
                     int lostSoulAmount = (fleshTotemManaStorage / 2) / 25;
-                    int lostSoulDamage = (int)Player.GetTotalDamage<MagicDamageClass>().ApplyTo(FleshTotem.lostSoulDamage);
+                    int lostSoulDamage = (int)Player.GetTotalDamage<MagicDamageClass>().ApplyTo(global::CalamityMod.Items.Accessories.FleshTotem.lostSoulDamage);
                     if (Player.ownedProjectileCounts[ModContent.ProjectileType<FleshTotemMinion>()] != 0)
                     {
                         for (int i = 0; i < Main.maxProjectiles; i++)
@@ -2246,7 +2246,7 @@ namespace CalamityMod.CalPlayer
                             {
                                 for (int k = 0; k < lostSoulAmount; k++)
                                 {
-                                    Projectile.NewProjectile(Player.GetSource_Accessory_OnHurt(FindAccessory<FleshTotem>(), hurtInfo.DamageSource), proj.Center, new Vector2(10, 10).RotatedByRandom(100) * Main.rand.NextFloat(0.4f, 0.55f), ModContent.ProjectileType<FleshTotemSoul>(), lostSoulDamage, 0f, Main.myPlayer, 0f, 0f, 3f);
+                                    Projectile.NewProjectile(Player.GetSource_Accessory_OnHurt(FindAccessory<global::CalamityMod.Items.Accessories.FleshTotem>(), hurtInfo.DamageSource), proj.Center, new Vector2(10, 10).RotatedByRandom(100) * Main.rand.NextFloat(0.4f, 0.55f), ModContent.ProjectileType<FleshTotemSoul>(), lostSoulDamage, 0f, Main.myPlayer, 0f, 0f, 3f);
                                 }
                                 break;
                             }

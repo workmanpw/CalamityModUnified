@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CalamityMod.Balancing;
@@ -4511,7 +4511,7 @@ namespace CalamityMod.NPCs
             {
                 if (Main.rand.NextBool(4))
                 {
-                    RancorFog fog = new(npc.Center, Main.rand.NextVector2Circular(2.75f, 6.5f), 180, Main.rand.NextFloat(0.45f, 0.75f), Main.rand.NextFloat(MathHelper.TwoPi));
+                    global::CalamityMod.Particles.RancorFog fog = new(npc.Center, Main.rand.NextVector2Circular(2.75f, 6.5f), 180, Main.rand.NextFloat(0.45f, 0.75f), Main.rand.NextFloat(MathHelper.TwoPi));
                     GeneralParticleHandler.SpawnParticle(fog, false, Enums.GeneralDrawLayer.BeforeNPCs);
                 }
                 if (Main.rand.NextBool(6))
