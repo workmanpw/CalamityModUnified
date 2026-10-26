@@ -1826,3 +1826,24 @@ VoidConcentrationSummonTagBuff: {
 	DisplayName: Void Concentration Summon Tag Buff
 	Description: You should never see this.
 }
+
+GlacialState: {
+	DisplayName: Glacial State
+	Description: Cannot move
+	ItemTooltip: Freezes enemies
+}
+
+Corroslime: {
+	DisplayName: Corroslime
+	Description: The corroslime will protect you
+}
+
+Crimslime: {
+	DisplayName: Crimslime
+	Description: The crimslime will protect you
+}
+
+DemonshadeSetDevilBuff: {
+	DisplayName: Red Devil
+	Description: The red devil will protect you
+}

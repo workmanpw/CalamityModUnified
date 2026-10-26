@@ -904,3 +904,13 @@ YharonsKindleStaff: {
 	DisplayName: Yharon's Kindle Staff
 	Tooltip: Summons a fiery draconid to fight for you
 }
+
+CorroslimeStaff: {
+	DisplayName: Corroslime Staff
+	Tooltip: Summons a corro slime to fight for you
+}
+
+CrimslimeStaff: {
+	DisplayName: Crimslime Staff
+	Tooltip: Summons a crim slime to fight for you
+}

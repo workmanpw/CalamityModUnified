@@ -1430,3 +1430,14 @@ WulfrumKnife: {
 		Returning knives also temporarily allows using stealth strikes without rogue armor
 		'''
 }
+
+SlickCane: {
+	DisplayName: Slick Cane
+	Tooltip:
+		'''
+		Swipes a cane that steals money from enemies
+		Stealth strikes give a 1 in 20 chance for enemies to drop 1-2 gold coins when hit
+		Stealth strikes boost damage in proportion to money in the inventory, up to 1 Platinum
+		'Economy at its finest'
+		'''
+}

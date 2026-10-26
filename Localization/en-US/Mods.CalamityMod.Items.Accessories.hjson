@@ -2346,3 +2346,13 @@ XyksBlessingOrange: {
 	ArmorDisabled: "[c/D44748:DISABLED]"
 	ArmorEnabled: "[c/58D447:ENABLED]"
 }
+
+VoidofExtinction: {
+	DisplayName: Void of Extinction
+	Tooltip:
+		'''
+		{$CommonItemTooltip.PercentIncreasedCritChance}
+		Critical strikes explode, igniting nearby foes with [cbuff:CalamityMod/BrimstoneFlames]
+		Reduces damage taken from [cbuff:CalamityMod/BrimstoneFlames] by {1}%
+		'''
+}

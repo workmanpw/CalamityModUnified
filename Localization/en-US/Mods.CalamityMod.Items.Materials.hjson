@@ -316,3 +316,18 @@ WillOWisp: {
 	DisplayName: Will O Wisp
 	Tooltip: ""
 }
+
+BloodstoneCore: {
+	DisplayName: Bloodstone Core
+	Tooltip: ""
+}
+
+GalacticaSingularity: {
+	DisplayName: Galactica Singularity
+	Tooltip: A shard of the cosmos
+}
+
+MeldConstruct: {
+	DisplayName: Meld Construct
+	Tooltip: ""
+}
