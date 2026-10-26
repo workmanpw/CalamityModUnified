@@ -26,6 +26,8 @@ namespace CalamityMod.Items.Armor.Demonshade
 
         // Set Bonus
         public static int SetBonusMinionSlotBoost = 8;
+        // Restored from the old local fork: Demonshade set summons the Red Devil.
+        public static int DevilDamage = 1000;
         public static float SetBonusSummonDamageBoost = 1f;
         public static int BeamDamage => CalamityUtils.ScaleWithDifficulty(300);
         public static int ScytheDamage => CalamityUtils.ScaleWithDifficulty(500);
@@ -56,6 +58,20 @@ namespace CalamityMod.Items.Armor.Demonshade
             player.setBonus = this.GetLocalization("SetBonus").Format(SetBonusMinionSlotBoost, SetBonusSummonDamageBoost.ToPercent(), CalamityUtils.GetArmorSetBonusKey(), EnrageDuration.FramesToSeconds(), (1f + MultDamageBoost).Round(), (1D + MultDamageTakenBoost).Round());
             var modPlayer = player.Calamity();
             modPlayer.demonshadeSet = true;
+            // Restored from the old local fork: summon the Red Devil while wearing the full set.
+            if (player.whoAmI == Main.myPlayer && !modPlayer.chibii)
+            {
+                modPlayer.redDevil = true;
+                var source = player.GetSource_ItemUse(Item);
+                if (player.FindBuffIndex(ModContent.BuffType<DemonshadeSetDevilBuff>()) == -1)
+                    player.AddBuff(ModContent.BuffType<DemonshadeSetDevilBuff>(), 3600, true);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<DemonshadeRedDevil>()] < 1)
+                {
+                    int damage = (int)player.GetTotalDamage<SummonDamageClass>().ApplyTo(DevilDamage);
+                    var devil = Projectile.NewProjectileDirect(source, player.Center, -Vector2.UnitY, ModContent.ProjectileType<DemonshadeRedDevil>(), damage, 0f, Main.myPlayer, 2f, 0f);
+                    devil.originalDamage = DevilDamage;
+                }
+            }
             modPlayer.wearingRogueArmor = true;
             modPlayer.WearingPostMLSummonerSet = true;
             player.maxMinions += SetBonusMinionSlotBoost;

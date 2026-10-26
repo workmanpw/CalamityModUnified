@@ -87,9 +87,13 @@ namespace CalamityMod.Projectiles.Magic
             Projectile.Center = center;
 
             // 14NOV2024: Ozzatron: clamped mouse position unnecessary, only used for direction
-            // Set the direction of the cannon if it hasn't been set yet.
-            if (Projectile.velocity == Vector2.Zero || Projectile.velocity.Length() != 1f)
-                Projectile.velocity = (Main.MouseWorld - center).SafeNormalize(Vector2.UnitX * Projectile.direction);
+            // Free aim while channeling: re-aim at the mouse every frame, instead of locking on the first frame.
+            Vector2 newVelocity = (Main.MouseWorld - center).SafeNormalize(Vector2.UnitX * Projectile.direction);
+            if (newVelocity != Projectile.velocity)
+            {
+                Projectile.velocity = newVelocity;
+                Projectile.netUpdate = true;
+            }
 
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.direction = Projectile.spriteDirection = (Math.Cos(Projectile.rotation) > 0).ToDirectionInt();
