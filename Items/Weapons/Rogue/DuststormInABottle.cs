@@ -10,6 +10,12 @@ namespace CalamityMod.Items.Weapons.Rogue
 {
     public class DuststormInABottle : RogueWeapon
     {
+        // Restored for DuststormCloudHitbox (removed in official 2.2.2 rewrite).
+        public static int CloudLifetime = 200;
+        public static float MaxSize = 3.2f;
+        public static float MaxSizeStealth = 3.6f;
+        public static float GrowthRate = 0.025f;
+        public static float StealthGrowthRate = 0.035f;
         public override void SetDefaults()
         {
             Item.width = 20;

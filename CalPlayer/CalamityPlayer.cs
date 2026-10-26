@@ -1593,6 +1593,14 @@ namespace CalamityMod.CalPlayer
         public bool igneousExaltation = false;
         public bool GlacialEmbrace = false;
         public bool VoidConcentrationStaff = false;
+        // Restored for old content removed in official 2.2.2 (Void Concentration, Demonshade, Slime God minions, Void of Extinction).
+        public bool voidOfExtinction = false;
+        public bool redDevil = false;
+        public bool rDevil = false;
+        public bool cSlime = false;
+        public bool voidAura = false;
+        public bool voidAuraDamage = false;
+        public bool voidConcentrationAura = false;
         public bool MutatedTruffleBool = false;
         public bool virili = false;
         public bool frostBlossom = false;

@@ -257,6 +257,10 @@ namespace CalamityMod.NPCs
         public bool vaporfied = false;
         public bool timeDistortion = false;
         public bool frozen = false;
+        // Restored for GlacialState debuff (removed in official 2.2.2).
+        public const int slowingDebuffResistanceMin = 1800;
+        public int debuffResistanceTimer = 0;
+        public bool glacialState = false;
         public bool galvanicCorrosion = false;
         public bool temporalSadness = false;
         public bool eutrophication = false;

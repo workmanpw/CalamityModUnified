@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CalamityMod.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +29,7 @@ namespace CalamityMod.Dusts
         {
             if (dust.color == Color.Transparent)
                 dust.color = RandomColor;
-            dust.dataAsFloat = 0.75f;
+            dust.customData = 0.75f;
             dust.rotation = Main.rand.NextFloat(0, MathHelper.TwoPi);
         }
         public override bool MidUpdate(Dust dust)
@@ -39,11 +39,11 @@ namespace CalamityMod.Dusts
 
         public override bool Update(Dust dust)
         {
-            dust.dataAsFloat *= 0.96f;
+            dust.customData = (float)dust.customData * 0.96f;
             dust.position += dust.velocity;
             dust.velocity *= 0.925f;
-            dust.rotation += MathF.Sin(dust.dustIndex * 0.1f) * 0.2f * dust.dataAsFloat;
-            if (dust.dataAsFloat <= 0.01f)
+            dust.rotation += MathF.Sin(dust.dustIndex * 0.1f) * 0.2f * (float)dust.customData;
+            if ((float)dust.customData <= 0.01f)
                 dust.active = false;
             return false;
         }
@@ -56,10 +56,10 @@ namespace CalamityMod.Dusts
                 tex.Value,
                 dust.position - Main.screenPosition,
                 null,
-                dust.color * dust.dataAsFloat,
+                dust.color * (float)dust.customData,
                 dust.rotation,
                 tex.Size() * 0.5f,
-                dust.scale * 0.1f * (0.75f + 0.25f * dust.dataAsFloat),
+                dust.scale * 0.1f * (0.75f + 0.25f * (float)dust.customData),
                 SpriteEffects.None,
                 0
             );

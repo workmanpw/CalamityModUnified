@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CalamityMod.Utilities.Daybreak;
 using CalamityMod.Utilities.Daybreak.Buffers;
 using Microsoft.Xna.Framework;
@@ -47,7 +47,7 @@ namespace CalamityMod.Rarities
 
                     var pos = position;
                     using var lease = ScreenspaceTargetPool.Shared.Rent(Main.instance.GraphicsDevice);
-                    var matrix = spriteBatch.transformMatrix;
+                    var matrix = new global::CalamityMod.Utilities.Daybreak.SpriteBatchSnapshot(spriteBatch).TransformMatrix;
                     using (spriteBatch.Scope())
                     {
                         using (lease.Scope(clearColor: Color.Transparent))

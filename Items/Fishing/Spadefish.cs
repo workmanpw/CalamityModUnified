@@ -340,7 +340,7 @@ namespace CalamityMod.Items.Fishing
 
             using (Main.spriteBatch.Scope())
             {
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.identity);
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Identity);
                 Main.spriteBatch.Draw(lease.Target, position - Main.screenPosition, null, Color.White, 0, position - Main.screenPosition, new Vector2(MathF.Abs(width), 1), width < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
                 Main.spriteBatch.End();
             }

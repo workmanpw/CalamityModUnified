@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CalamityMod.Items.Armor.Auric;
@@ -333,7 +333,7 @@ namespace CalamityMod.Items.Accessories.Wings
                         var shaderSnap = new SpriteBatchSnapshot();
                         shaderSnap.SortMode = SpriteSortMode.Immediate;
                         shaderSnap.SamplerState = SamplerState.PointClamp;
-                        shaderSnap.TransformMatrix = Matrix.identity;
+                        shaderSnap.TransformMatrix = Matrix.Identity;
                         Main.spriteBatch.Begin(shaderSnap);
 
                         MiscShaderData paletteSwap = GameShaders.Misc["CalamityMod:PaletteSwap"];
@@ -350,7 +350,7 @@ namespace CalamityMod.Items.Accessories.Wings
                         var shaderSnap = new SpriteBatchSnapshot();
                         shaderSnap.SortMode = SpriteSortMode.Immediate;
                         shaderSnap.SamplerState = SamplerState.PointClamp;
-                        shaderSnap.TransformMatrix = Matrix.identity;
+                        shaderSnap.TransformMatrix = Matrix.Identity;
                         Main.spriteBatch.Begin(shaderSnap);
 
                         MiscShaderData paletteSwap = GameShaders.Misc["CalamityMod:PaletteSwap"];
@@ -428,7 +428,7 @@ namespace CalamityMod.Items.Accessories.Wings
                 var pos = position;
                 using var lease = ScreenspaceTargetPool.Shared.Rent(Main.instance.GraphicsDevice);
                 string txt = "";
-                var matrix = spriteBatch.transformMatrix;
+                var matrix = new global::CalamityMod.Utilities.Daybreak.SpriteBatchSnapshot(spriteBatch).TransformMatrix;
                 using (spriteBatch.Scope())
                 {
                     using (lease.Scope(clearColor: Color.Transparent))

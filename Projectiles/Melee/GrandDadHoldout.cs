@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CalamityMod.Dusts;
 using CalamityMod.Enums;
@@ -26,10 +26,10 @@ namespace CalamityMod.Projectiles.Melee
 
         public ref float attackTimer => ref Projectile.ai[0];
         public Player Owner => Main.player[Projectile.owner];
-        public int fireRate => (int)((Owner.HeldItem.useAnimation * Owner.inverseMeleeSpeed * Projectile.MaxUpdates) / 2.75f);
+        public int fireRate => (int)((Owner.HeldItem.useAnimation * (1f / Owner.GetAttackSpeed<MeleeDamageClass>()) * Projectile.MaxUpdates) / 2.75f);
         public int time = 0;
         public Vector2 toMouse = Vector2.Zero;
-        public int cooldown => (int)(-Owner.HeldItem.useAnimation * Owner.inverseMeleeSpeed * Projectile.MaxUpdates);
+        public int cooldown => (int)(-Owner.HeldItem.useAnimation * (1f / Owner.GetAttackSpeed<MeleeDamageClass>()) * Projectile.MaxUpdates);
         public float bladeRot = 0; // Rotation of the blade
         public int swingCount = 0; // Increases at the start of a swing
         public float bladefx = 0; // Visual effects of the blade
@@ -94,7 +94,7 @@ namespace CalamityMod.Projectiles.Melee
             Owner.heldProj = Projectile.whoAmI;
             Owner.itemRotation = (Projectile.velocity * Owner.direction).ToRotation();
 
-            angleArmHold = MathHelper.Lerp(angleArmHold, angledHold * MathF.Pow(Utils.GetLerpValue(cooldown, cooldown * 0.35f, attackTimer, true), 5), 0.12f / Projectile.MaxUpdates * Owner.meleeSpeed);
+            angleArmHold = MathHelper.Lerp(angleArmHold, angledHold * MathF.Pow(Utils.GetLerpValue(cooldown, cooldown * 0.35f, attackTimer, true), 5), 0.12f / Projectile.MaxUpdates * Owner.GetAttackSpeed<MeleeDamageClass>());
             float angleVariation = (float)Math.Sin(time * 0.04f / Projectile.MaxUpdates) * 0.05f;
 
             float outwardDistance = 5;
@@ -127,9 +127,9 @@ namespace CalamityMod.Projectiles.Melee
                     enabledHitbox--;
             }
             if (fadeInFX)
-                bladefx = MathHelper.Lerp(bladefx, 1, 0.25f / Projectile.MaxUpdates * Owner.meleeSpeed);
+                bladefx = MathHelper.Lerp(bladefx, 1, 0.25f / Projectile.MaxUpdates * Owner.GetAttackSpeed<MeleeDamageClass>());
             else
-                bladefx = MathHelper.Lerp(bladefx, 0, 0.15f / Projectile.MaxUpdates * Owner.meleeSpeed);
+                bladefx = MathHelper.Lerp(bladefx, 0, 0.15f / Projectile.MaxUpdates * Owner.GetAttackSpeed<MeleeDamageClass>());
 
             if (canReleaseHoldout || time < 25)
             {
@@ -143,7 +143,7 @@ namespace CalamityMod.Projectiles.Melee
                 Owner.itemTime = Owner.itemAnimation = 5;
 
             
-            float lerpSpeed = 0.1f / Projectile.MaxUpdates * Owner.meleeSpeed;
+            float lerpSpeed = 0.1f / Projectile.MaxUpdates * Owner.GetAttackSpeed<MeleeDamageClass>();
             float maxAngle = MathHelper.PiOver4 * 0.8f;
             if (swingCount % 2 == 0)
                 angledHold = MathHelper.Lerp(angledHold, maxAngle, lerpSpeed);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Dusts;
@@ -22,10 +22,10 @@ namespace CalamityMod.Projectiles.Melee
         public override string Texture => "CalamityMod/Items/Weapons/Melee/Basher";
         public ref float attackTimer => ref Projectile.ai[0];
         public Player Owner => Main.player[Projectile.owner];
-        public int fireRate => (int)((Owner.HeldItem.useAnimation * Owner.inverseMeleeSpeed * Projectile.MaxUpdates) / 2.75f);
+        public int fireRate => (int)((Owner.HeldItem.useAnimation * (1f / Owner.GetAttackSpeed<MeleeDamageClass>()) * Projectile.MaxUpdates) / 2.75f);
         public int time = 0;
         public Vector2 toMouse = Vector2.Zero;
-        public int cooldown => (int)(-Owner.HeldItem.useAnimation * Owner.inverseMeleeSpeed * Projectile.MaxUpdates);
+        public int cooldown => (int)(-Owner.HeldItem.useAnimation * (1f / Owner.GetAttackSpeed<MeleeDamageClass>()) * Projectile.MaxUpdates);
         public float bladeRot = 0; // Rotation of the blade
         public int swingCount = 0; // Increases at the start of a swing
         public float bladefx = 0; // Visual effects of the blade
@@ -109,12 +109,12 @@ namespace CalamityMod.Projectiles.Melee
 
             if (enabledHitbox > 0)
             {
-                bladefx = MathHelper.Lerp(bladefx, 1, 0.5f / Projectile.MaxUpdates * Owner.meleeSpeed);
+                bladefx = MathHelper.Lerp(bladefx, 1, 0.5f / Projectile.MaxUpdates * Owner.GetAttackSpeed<MeleeDamageClass>());
                 if (Projectile.FinalExtraUpdate())
                     enabledHitbox--;
             }
             else
-                bladefx = MathHelper.Lerp(bladefx, 0, 0.55f / Projectile.MaxUpdates * Owner.meleeSpeed);
+                bladefx = MathHelper.Lerp(bladefx, 0, 0.55f / Projectile.MaxUpdates * Owner.GetAttackSpeed<MeleeDamageClass>());
 
             if (attackTimer == -1 || time < 25)
             {
@@ -134,7 +134,7 @@ namespace CalamityMod.Projectiles.Melee
 
                 float lerp = Utils.GetLerpValue(cooldown, -1, attackTimer, true);
 
-                float lerpSpeed = 0.2f / Projectile.MaxUpdates * Owner.meleeSpeed;
+                float lerpSpeed = 0.2f / Projectile.MaxUpdates * Owner.GetAttackSpeed<MeleeDamageClass>();
                 float maxAngle = MathHelper.PiOver4;
                 if (swingCount % 2 == 0)
                     angledHold = MathHelper.Lerp(angledHold, maxAngle, lerpSpeed);

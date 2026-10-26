@@ -17,7 +17,7 @@ namespace CalamityMod.Projectiles.Ranged
 {
     public class VoidragonHoldout : BaseGunHoldoutProjectile
     {
-        public override int AssociatedItemID => ModContent.ItemType<Voidragon>();
+        public override int AssociatedItemID => ModContent.ItemType<global::CalamityMod.Items.Weapons.Ranged.Voidragon>();
         public override float MaxOffsetLengthFromArm => 40f;
         public override float OffsetXUpwards => -5f;
         public override float BaseOffsetY => -1f;
