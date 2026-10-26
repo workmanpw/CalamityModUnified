@@ -1,4 +1,4 @@
-﻿using CalamityMod.Dusts;
+using CalamityMod.Dusts;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -103,8 +103,8 @@ namespace CalamityMod.Projectiles.Rogue
                     GeneralParticleHandler.SpawnParticle(blood);
                 }
 
-                SoundEngine.PlaySound(SoundID.Item62 with { pitch = 1f }, Projectile.Center);
-                SoundEngine.PlaySound(SoundID.Item111 with { pitch = 0.5f }, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item62 with { Pitch = 1f }, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item111 with { Pitch = 0.5f }, Projectile.Center);
                 Projectile.Kill();
 
             }

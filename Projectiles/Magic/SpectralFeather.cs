@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CalamityMod.CalPlayer;
 using CalamityMod.Particles;
@@ -100,12 +100,12 @@ namespace CalamityMod.Projectiles.Magic
             CalamityPlayer modPlayer = player.Calamity();
             if (visuals)
             {
-                SoundEngine.PlaySound(SoundID.Item20 with { volume = 0.6f }, player.Center);
+                SoundEngine.PlaySound(SoundID.Item20 with { Volume = 0.6f }, player.Center);
             }
             if (modPlayer.mageCrownCount == 5)
             {
                 SoundStyle max = new("CalamityMod/Sounds/Item/AscendantOff");
-                SoundEngine.PlaySound(max with { volume = 0.6f }, player.Center);
+                SoundEngine.PlaySound(max with { Volume = 0.6f }, player.Center);
             }
         }
 

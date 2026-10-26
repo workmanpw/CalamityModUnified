@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CalamityMod.Items.Weapons.Rogue;
 using CalamityMod.Particles;
 using CalamityMod.Projectiles.BaseProjectiles;
@@ -78,7 +78,7 @@ namespace CalamityMod.Projectiles.Rogue
 
                 if (!Main.dedServ)
                 {
-                    SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack with { pitch = 1f });
+                    SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack with { Pitch = 1f });
                     Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY * -8 + angle, Mod.Find<ModGore>("LemonNadePin").Type, 1);
                 }
             }

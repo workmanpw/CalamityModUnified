@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -396,7 +396,7 @@ namespace CalamityMod.Items.Fishing
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            SoundEngine.PlaySound(SoundID.Item178 with { pitch = (spin-MathHelper.TwoPi) / (MathHelper.TwoPi * Spadefish.SpinsToThrow) - 0.5f }, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item178 with { Pitch = (spin-MathHelper.TwoPi) / (MathHelper.TwoPi * Spadefish.SpinsToThrow) - 0.5f }, Projectile.Center);
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.Utilities;
 using Microsoft.Xna.Framework;
@@ -196,7 +196,7 @@ namespace CalamityMod.Projectiles.Magic
                 // If the beam isn't at max scale, then make additional smaller dust.
                 if (Projectile.scale != MaxBeamScale)
                 {
-                    Dust smallDust = Dust.BetterCloneDust(d);
+                    Dust smallDust = DustExtensions.BetterCloneDust(d);
                     smallDust.scale /= 2f;
                 }
             }

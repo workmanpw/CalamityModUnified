@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +10,11 @@ namespace CalamityMod.Utilities
 {
     internal static class HitModiferUtils
     {
-        extension(ref NPC.HitModifiers modifiers)
+        internal static void ApplyScalingForcedCrit(this ref NPC.HitModifiers modifiers, Projectile Projectile)
         {
-            internal void ApplyScalingForcedCrit(Projectile Projectile)
-            {
-                modifiers.SetCrit();
-                float critDamage = Main.player[Projectile.owner].GetTotalCritChance(Projectile.DamageType) * 0.02f;
-                modifiers.CritDamage += critDamage;
-            }
+            modifiers.SetCrit();
+            float critDamage = Main.player[Projectile.owner].GetTotalCritChance(Projectile.DamageType) * 0.02f;
+            modifiers.CritDamage += critDamage;
         }
     }
 }

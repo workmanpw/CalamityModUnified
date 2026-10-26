@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -115,7 +115,7 @@ namespace CalamityMod.NPCs.Other
 
             if (owner.wingTime <= 0 && !released)
             {
-                SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact with { pitch = Main.rand.NextFloat(-0.1f, 0.1f), MaxInstances = 10 }, NPC.Center);
+                SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact with { Pitch = Main.rand.NextFloat(-0.1f, 0.1f), MaxInstances = 10 }, NPC.Center);
                 time = 0;
                 NPC.dontTakeDamage = false;
                 NPC.noTileCollide = false;

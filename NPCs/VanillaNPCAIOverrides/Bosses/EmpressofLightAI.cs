@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CalamityMod.Events;
 using CalamityMod.World;
 using CalamityMod.Utilities;
@@ -1169,7 +1169,7 @@ namespace CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses
                         Main.dust[despawnRainbowDust].scale = 0.35f;
                         if (despawnRainbowDust != 6000)
                         {
-                            Dust dust = Dust.BetterCloneDust(despawnRainbowDust);
+                            Dust dust = DustExtensions.BetterCloneDust(despawnRainbowDust);
                             dust.scale /= 2f;
                             dust.fadeIn *= 0.85f;
                             dust.color = new Color(255, 255, 255, 255);
@@ -1233,7 +1233,7 @@ namespace CalamityMod.NPCs.VanillaNPCAIOverrides.Bosses
                 Main.dust[dust].scale = 0.35f;
                 if (dust != Main.maxDust)
                 {
-                    Dust dust2 = Dust.BetterCloneDust(dust);
+                    Dust dust2 = DustExtensions.BetterCloneDust(dust);
                     dust2.scale /= 2f;
                     dust2.fadeIn *= 0.85f;
                     dust2.color = new Color(255, 255, 255, 255);
